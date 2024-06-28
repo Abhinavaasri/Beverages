@@ -1,0 +1,91 @@
+{% extends 'orders/header.html' %}
+{%block title%} Menu {%endblock title%}
+
+{% block content %}
+<style>
+  .container-fluid {
+    padding: 20px;
+    max-width: 1200px; /* Limiting max container width for better alignment */
+  }
+
+  .row {
+    gap: 10px; /* Smaller gap for a more compact layout */
+  }
+
+  .card {
+    width: 100%; /* Full width on small screens */
+    margin: 10px 0; /* Reduced vertical margin */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+    border-radius: 8px;
+  }
+
+  .card:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-img-top {
+    height: 160px; /* Reduced height for images */
+    object-fit: cover;
+  }
+
+  .card-body {
+    padding: 10px;
+    background-color: #ffffff;
+    color: #333;
+  }
+
+  .card-title {
+    color: #e65100; /* Complementary dark orange */
+    font-size: 16px; /* Slightly smaller font size */
+    margin-bottom: 5px;
+  }
+
+  .card-text {
+    font-size: 14px;
+    color: #666;
+  }
+
+  .btn-orange {
+    background-color: #f97316;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    font-size: 14px; /* Matching the font size with the card text */
+  }
+
+  .btn-orange:hover {
+    background-color: #dd6b20;
+  }
+
+  @media (min-width: 576px) {
+    .card {
+      width: calc(50% - 10px); /* Two cards per row on medium screens */
+    }
+  }
+
+  @media (min-width: 768px) {
+    .card {
+      width: calc(33.333% - 10px); /* Three cards per row on large screens */
+    }
+  }
+</style>
+
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    {% for cat in categories %}
+      <div class="card" style="width: 18rem; margin: 20px;"> <!-- The col-sm-4 stuff is that if its on a small screen it will take up a third of the widths-->
+        <img src={{cat.category_gif}} class="card-img-top" alt="img for category item" style="width:100%;">
+        <div class="card-body">
+          <h5 class="card-title" >{{cat.category_title}}</h5>
+          <p class="card-text">{{cat.category_description|safe}}</p>
+          <a href="{{cat.category_title}}" class="btn btn-dark" >Order {{cat.category_title}}</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

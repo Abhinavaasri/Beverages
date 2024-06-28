@@ -1,0 +1,215 @@
+{% extends 'orders/header.html' %}
+
+{% block content %}
+<style>
+    .container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border-radius: 12px;
+    }
+    h4 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 30px;
+        font-size: 26px;
+        font-weight: 600;
+    }
+    .card {
+        width: 24rem;
+        margin: 15px;
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+    .card-body {
+        padding: 20px;
+        text-align: center;
+    }
+    .card-title {
+        color: #555;
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 25px;
+        color: #fff;
+        background: linear-gradient(to right, #FFA500, #FF4500); /* Orange to dark orange */
+        border: none;
+        transition: all 0.3s ease;
+    }
+    .btn:hover {
+        background: linear-gradient(to right, #FF4500, #FFA500); /* Dark orange to orange */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    .table {
+        margin-top: 20px;
+        background-color: #f9f9f9;
+        border-collapse: collapse;
+    }
+    .thead-dark {
+        background-color: #555;
+        color: #fff;
+    }
+    .table th, .table td {
+        padding: 12px 15px;
+    }
+    .modal-content {
+        background-color: #fff;
+        color: #555;
+        padding: 20px;
+        border-radius: 8px;
+    }
+    .modal-header, .modal-footer {
+        border-bottom: 1px solid #eee;
+        border-top: 1px solid #eee;
+    }
+</style>
+
+
+
+<div class="container">
+    <h4 style="margin:10px; text-align:center; color: #5D4037;"> Choose one of the Pizza's &#x1f355; </h4>
+    <div class="row justify-content-center">
+        <div class="card" id="regular_pizza_card" style="width: 24rem; margin:10px;">
+            <div class="card-body">
+                <h5 class="card-title">Regular Pizza</h5>
+                {% for pizza in regular_pizza %}
+                    {% if pizza.category_description != "default" %}
+                        <p class="card-text">{{ pizza.category_description | safe }}</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="card" id="sicillian_pizza_card" style="width: 24rem; margin:10px;">
+            <div class="card-body">
+                <h5 class="card-title">Sicillian Pizza</h5>
+                {% for pizza in sicillian_pizza %}
+                    {% if pizza.category_description != "default" %}
+                        <p class="card-text">{{ pizza.category_description | safe }}</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <table class="table" id="sicillian_pizza_table" style="margin-top: 20px;">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Sicillian Pizza</th>
+                    <th scope="col">Small</th>
+                    <th scope="col">Large</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pizza in sicillian_pizza %}
+                    <tr>
+                        <th>{{pizza.pizza_choice}}</th>
+                        {% if forloop.counter0 in number_of_toppings %}
+                            <td><button type="button" class="btn btn-primary add_to_cart" onclick="pizza_toppings({{forloop.counter0}}, 'Small Sicillian', {{pizza.small_price}})"><strong>{{pizza.small_price}}</strong></button></td>
+                            <td><button type="button" class="btn btn-success add_to_cart" onclick="pizza_toppings({{forloop.counter0}}, 'Large Sicillian', {{pizza.large_price}})"><strong>{{pizza.large_price}}</strong></button></td>
+                        {% else %}
+                            <td><button type="button" class="btn btn-primary add_to_cart" onclick="add_to_cart({item_description: 'Small Sicillian Pizza - {{pizza.pizza_choice}}', price: {{pizza.small_price}}})"><strong>{{pizza.small_price}}</strong></button></td>
+                            <td><button type="button" class="btn btn-success add_to_cart" onclick="add_to_cart({item_description: 'Large Sicillian Pizza - {{pizza.pizza_choice}}', price: {{pizza.large_price}}})"><strong>{{pizza.large_price}}</strong></button></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <table class="table" id="regular_pizza_table" style="margin-top: 20px;">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Regular Pizza</th>
+                    <th scope="col">Small</th>
+                    <th scope="col">Large</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pizza in regular_pizza %}
+                    <tr>
+                        <th>{{pizza.pizza_choice}}</th>
+                        {% if forloop.counter0 in number_of_toppings %}
+                            <td><button type="button" class="btn btn-primary add_to_cart" onclick="pizza_toppings({{forloop.counter0}}, 'Small Regular', {{pizza.small_price}})"><strong>{{pizza.small_price}}</strong></button></td>
+                            <td><button type="button" class="btn btn-success add_to_cart" onclick="pizza_toppings({{forloop.counter0}}, 'Large Regular', {{pizza.large_price}})"><strong>{{pizza.large_price}}</strong></button></td>
+                        {% else %}
+                            <td><button type="button" class="btn btn-primary add_to_cart" onclick="add_to_cart({item_description: 'Small Regular Pizza - {{pizza.pizza_choice}}', price: {{pizza.small_price}}})"><strong>{{pizza.small_price}}</strong></button></td>
+                            <td><button type="button" class="btn btn-success add_to_cart" onclick="add_to_cart({item_description: 'Large Regular Pizza - {{pizza.pizza_choice}}', price: {{pizza.large_price}}})"><strong>{{pizza.large_price}}</strong></button></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal" id="toppings_modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Toppings</h5>
+                <button type="button" the class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label id="toppings_label" for="select_toppings"></label>
+                <select multiple class="form-control" id="select_toppings">
+                    {% for topping in toppings %}
+                        <option>{{topping}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button id="submit_toppings" type="button" class="btn btn-primary">Add to cart</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+   <script>
+
+      var currently_selected;
+      var regular_pizza = document.getElementById('regular_pizza_card');
+      var sicillian_pizza = document.getElementById('sicillian_pizza_card');
+
+      regular_pizza.onclick = function () {
+        if (currently_selected !== "regular"){
+          currently_selected = "regular";
+          regular_pizza.style.border = "2px solid black";
+          sicillian_pizza.style.border = "None";
+
+        }
+      };
+
+      sicillian_pizza.onclick = function () {
+        if (currently_selected !== "sicillian"){
+          currently_selected = "sicillian";
+          sicillian_pizza.style.border = "2px solid black";
+          regular_pizza.style.border = "None";
+        }
+      };
+
+    </script>
+
+{% endblock %}
+

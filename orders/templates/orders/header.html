@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> {%block title%} {%endblock title%} |Bever-ages</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Georgia&display=swap" rel="stylesheet">
+    
+    <!-- For the toasts -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'orders/main.js' %}">
+
+    <!-- Custom CSS for playful design -->
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #FFEBE5; /* Lighter shade for background */
+        }
+        .navbar-custom {
+            background-color: #D35400; /* Base orange color */
+            box-shadow: 0 4px 6px rgba(0,0,0,.1);
+        }
+        .navbar-brand {
+            font-size: 1.8em;
+            color: #FFFFFF; /* White text for contrast */
+            text-shadow: 1px 1px 2px #F39C12; /* Lighter orange shadow for depth */
+        }
+        .navbar-dark .navbar-nav .nav-link {
+            color: #FFFFFF; /* White for readability */
+            font-size: 1.1em;
+            transition: all 0.3s ease-in-out;
+            padding: 10px 20px; /* Add padding for spacing */
+            border-radius: 30px; /* Rounded edges */
+            margin: 0 10px; /* Add margin for spacing */
+            border: 2px solid transparent; /* Transparent border initially */
+        }
+        .navbar-dark .navbar-nav .nav-link:hover,
+        .navbar-dark .navbar-nav .nav-link:focus {
+            background-color: #FFAB91; /* Lighter orange on hover */
+            color: #FFFFFF; /* White text on hover */
+            border-color: #FFFFFF; /* White border on hover */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow on hover */
+        }
+        .btn-custom {
+            background-color: #E67E22; /* Slightly lighter than base for buttons */
+            color: #FFFFFF; /* White text for clear visibility */
+            border: none; /* No border for a clean look */
+            transition: all 0.3s ease;
+            border-radius: 20px; /* Rounded edges */
+        }
+        .btn-custom:hover {
+            background-color: #D35400;
+            box-shadow: 0 2px 10px rgba(255, 152, 0, 0.5);
+        }
+        .btn-dark-custom {
+            background-color: #BA4A00; /* Darker than base for alternative buttons */
+            color: #FFFFFF;
+            transition: all 0.3s ease;
+            border-radius: 20px;
+        }
+        .btn-dark-custom:hover {
+            background-color: #D35400;
+            box-shadow: 0 2px 10px rgba(255, 152, 0, 0.5);
+        }
+        .fa-shopping-cart {
+            animation: shake 5s infinite;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+            20%, 40%, 60%, 80% { transform: translateX(10px); }
+        }
+
+        .logo{
+            border-radius: 50%;
+            width: 30%;
+            height:50px;
+        }
+    </style>
+
+    <title>Bever-Ages</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+    <a class="navbar-brand" href="#">
+        <img class="logo" src="{% static '/images/logo.png' %}" alt="Logo" height="40">
+        Bever-Ages
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarText">
+        {% if user.is_authenticated %}
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/">🍔Menu</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/find">Find Us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/about">📜About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/contact">📞Contact Us</a>
+            </li>
+        </ul>
+        <span class="navbar-text">
+            <a href="/view-orders" class="btn btn-custom">Peek Orders</a>
+            <a href="/cart" id="cart_button" class="btn btn-custom">Cart Party <i class="fa fa-shopping-cart" style="font-size:24px;"></i></a>
+            <button type="button" class="btn btn-dark-custom" onclick="logout()">
+                <i class="fa fa-sign-out"></i> Log Off
+            </button>
+        </span>
+        {% endif %}
+    </div>
+</nav>
+
+{% block content %}
+{% endblock %}
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="{% static 'orders/main.js' %}"></script>
+</body>
+</html>

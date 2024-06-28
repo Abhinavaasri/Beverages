@@ -1,0 +1,153 @@
+{% extends 'orders/header.html' %}
+{%block title%} About {%endblock title%}
+
+{% block content %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Bever-Ages</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <style>
+      body {
+          font-family: 'Roboto', sans-serif;
+          color: #333;
+          margin: 0;
+          padding: 0;
+          background: linear-gradient(to bottom, #FFEBE5, #E67E22); /* Gradient background */
+      }
+      .container {
+          max-width: 800px;
+          margin: 50px auto;
+          padding: 0 20px;
+          background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+          border-radius: 20px; /* Rounded corners */
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+      }
+      h1 {
+          text-align: center;
+          margin-bottom: 50px;
+          font-size: 3em;
+          color: #D35400;
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+      p {
+          font-size: 1.1em;
+          line-height: 1.6;
+      }
+      .about-img {
+          text-align: center;
+          margin-bottom: 30px;
+      }
+      .about-img img {
+          border-radius: 50%;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      }
+      .about-content {
+          text-align: justify;
+      }
+      .highlight {
+          color: #E67E22;
+          font-weight: bold;
+      }
+      .btn-custom {
+          background-color: #E67E22;
+          color: #fff;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 20px;
+          font-size: 1.1em;
+          cursor: pointer;
+          transition: background-color 0.3s;
+      }
+      .btn-custom:hover {
+          background-color: #D35400;
+      }
+      .fa-heart {
+          color: #D35400;
+      }
+      .menu-list {
+          margin-top: 30px;
+          list-style: none;
+          padding-left: 0;
+          text-align: center;
+      }
+      .menu-list li {
+          margin-bottom: 20px;
+      }
+      .menu-list li span {
+          font-size: 1.2em;
+          color: #E67E22;
+          font-weight: bold;
+      }
+      .menu-list li p {
+          font-size: 1.1em;
+          line-height: 1.6;
+      }
+      /* Additional Styling */
+      .additional-info {
+          margin-top: 50px;
+      }
+      .additional-info p {
+          font-size: 1.2em;
+          margin-bottom: 20px;
+      }
+      .additional-info .icon {
+          font-size: 2em;
+          color: #E67E22;
+          margin-right: 10px;
+      }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Welcome to Bever-Ages!</h1>
+  <div class="about-img">
+      <img src="/static/images/logo.png" alt="Bever-Ages Logo" width="200">
+  </div>
+  <div class="about-content">
+      <p>Bever-Ages is not just a place to grab a drink; it's an experience. We are passionate about serving the finest beverages and delicious food to our customers, crafted with love and dedication.</p>
+      <p>At Bever-Ages, we believe in quality, innovation, and community. Our team of chefs and mixologists works tirelessly to create unique and exciting dishes and drinks that tantalize your taste buds and leave you wanting more.</p>
+      <p>We offer a diverse menu featuring <span class="highlight">many types of pizza</span>, <span class="highlight">pasta</span>, <span class="highlight">subs</span>, <span class="highlight">platters</span>, and <span class="highlight">a variety of drinks</span> to satisfy every craving.</p>
+      <p>We source only the freshest ingredients and finest spirits to ensure that every bite and sip you take is a moment of pure delight. Whether you're craving a classic Margherita pizza, a hearty pasta dish, or a refreshing cocktail, Bever-Ages has something for everyone.</p>
+      <p>Come join us on a journey through flavors, aromas, and experiences. Let us raise a toast to good times, great company, and unforgettable memories.</p>
+  </div>
+  <ul class="menu-list">
+      <li>
+          <span>Pizza:</span>
+          <p>From classic Margherita to exotic toppings, our pizzas are made with the freshest ingredients and baked to perfection.</p>
+      </li>
+      <li>
+          <span>Pasta:</span>
+          <p>Indulge in our hearty pasta dishes, crafted with rich sauces and flavorful ingredients.</p>
+      </li>
+      <li>
+          <span>Subs:</span>
+          <p>Enjoy our delicious subs filled with premium meats, cheeses, and fresh vegetables, served on freshly baked bread.</p>
+      </li>
+      <li>
+          <span>Platters:</span>
+          <p>Our platters are perfect for sharing, featuring a variety of appetizers, meats, cheeses, and more.</p>
+      </li>
+      <li>
+          <span>Drinks:</span>
+          <p>Quench your thirst with our wide selection of beverages, including cocktails, mocktails, smoothies, and more.</p>
+      </li>
+  </ul>
+  <div class="text-center">
+      <a href="/" class="btn-custom">Explore Our Menu <i class="fa fa-heart"></i></a>
+  </div>
+  <!-- Additional Information -->
+  <div class="additional-info">
+      <h2>Why Choose Bever-Ages?</h2>
+      <p><i class="fa fa-check-circle icon"></i> Family-friendly environment</p>
+      <p><i class="fa fa-check-circle icon"></i> Extensive menu options for every taste</p>
+      <p><i class="fa fa-check-circle icon"></i> Relaxing ambiance and cozy seating</p>
+      <p><i class="fa fa-check-circle icon"></i> Exceptional customer service</p>
+      <p><i class="fa fa-check-circle icon"></i> Regular events and promotions</p>
+  </div>
+</div>
+
+{% endblock %}
